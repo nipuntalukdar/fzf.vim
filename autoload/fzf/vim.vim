@@ -431,6 +431,23 @@ function! fzf#vim#_uniq(list)
 endfunction
 
 " ------------------------------------------------------------------
+" LastFiles
+" ------------------------------------------------------------------
+function! fzf#vim#lastfiles(args, ...)
+  if filereadable(expand('~/.vim/file_paths.txt')) == 0
+    return
+  else
+    let source = 'cat ' . expand('~/.vim/file_paths.txt') . ' '
+    let root = getcwd()
+    return s:fzf('lastfiles', {
+    \ 'source':  source,
+    \ 'dir':     root,
+    \ 'options': '-m  --prompt "RecentFiles> "'
+    \}, a:000)
+  endif
+endfunction
+
+" ------------------------------------------------------------------
 " Files
 " ------------------------------------------------------------------
 function! s:shortpath()
